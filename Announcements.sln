@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Announcements.Api", "Announcements.Api\Announcements.Api.csproj", "{B0831598-4504-425C-B2C3-77C3B8E562A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Announcements.UI", "Announcements.UI\Announcements.UI.csproj", "{60C7513A-D614-46E6-9396-E1966C3E019F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B0831598-4504-425C-B2C3-77C3B8E562A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0831598-4504-425C-B2C3-77C3B8E562A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0831598-4504-425C-B2C3-77C3B8E562A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C7513A-D614-46E6-9396-E1966C3E019F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C7513A-D614-46E6-9396-E1966C3E019F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C7513A-D614-46E6-9396-E1966C3E019F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C7513A-D614-46E6-9396-E1966C3E019F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
