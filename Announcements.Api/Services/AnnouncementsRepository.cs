@@ -1,13 +1,14 @@
 ﻿using Announcements.Api.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace Announcements.Api.Services
 {
     public class AnnouncementsRepository : IAnnouncementsRepository
     {
         private readonly SqlConnection _connection;
-        private readonly ILogger _logger;
-        public AnnouncementsRepository(IConfiguration config, ILogger logger)
+        private readonly ILogger<AnnouncementsRepository> _logger;
+        public AnnouncementsRepository(IConfiguration config, ILogger<AnnouncementsRepository> logger)
         {
             _connection = new SqlConnection(config["AzureDb"]);
             _logger = logger;
@@ -30,13 +31,14 @@ namespace Announcements.Api.Services
                     command.Parameters.AddWithValue("@Category", item.Category);
                     command.Parameters.AddWithValue("@SubCategory", item.SubCategory);
 
-                    await _connection.OpenAsync();
+                    if (_connection.State == ConnectionState.Closed)
+                        await _connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Creating went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException.Message}");
+                _logger.LogError($"Creating went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException?.Message}");
             }
         }
 
@@ -50,13 +52,14 @@ namespace Announcements.Api.Services
 
                     command.Parameters.AddWithValue("@Id", id);
 
-                    await _connection.OpenAsync();
+                    if (_connection.State == ConnectionState.Closed)
+                        await _connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Deleting of id:{id} went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException.Message}");
+                _logger.LogError($"Deleting of id:{id} went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException?.Message}");
             }
         }
 
@@ -70,21 +73,21 @@ namespace Announcements.Api.Services
 
                     command.Parameters.AddWithValue("@Id", id);
 
-                    await _connection.OpenAsync();
+                    if (_connection.State == ConnectionState.Closed)
+                        await _connection.OpenAsync();
                     using var reader = await command.ExecuteReaderAsync();
 
                     if (await reader.ReadAsync())
                     {
                         return MapToAnnouncement(reader);
                     }
-                    return null;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Reading by id:{id} went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException.Message}");
-                return null;
+                _logger.LogError($"Reading by id:{id} went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException?.Message}");
             }
+            return null;
         }
 
         public async Task<List<Announcement>> ReadAll()
@@ -96,7 +99,9 @@ namespace Announcements.Api.Services
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    await _connection.OpenAsync();
+
+                    if (_connection.State == ConnectionState.Closed)
+                        await _connection.OpenAsync();
                     using var reader = await command.ExecuteReaderAsync();
 
                     while (await reader.ReadAsync())
@@ -108,7 +113,7 @@ namespace Announcements.Api.Services
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Reading all announcements went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException.Message}");
+                _logger.LogError($"Reading all announcements went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException?.Message}");
                 return new List<Announcement>();
             }
         }
@@ -130,13 +135,18 @@ namespace Announcements.Api.Services
                     command.Parameters.AddWithValue("@Category", item.Category);
                     command.Parameters.AddWithValue("@SubCategory", item.SubCategory);
 
-                    await _connection.OpenAsync();
+                    if (_connection.State == ConnectionState.Closed)
+                        await _connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Updating of id:{item.Id} went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException.Message}");
+                _logger.LogError($"Updating of id:{item.Id} went wrong with\nException:{ex.Message} \n and Inner: {ex.InnerException?.Message}");
+            }
+            if (_connection.State == ConnectionState.Open)
+            {
+                await _connection.CloseAsync();
             }
         }
 
