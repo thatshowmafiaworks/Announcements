@@ -1,9 +1,12 @@
+using Announcements.UI.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IAnnouncementsService, AnnouncementsService>();
 
 // Add Serilog
 Log.Logger = new LoggerConfiguration()

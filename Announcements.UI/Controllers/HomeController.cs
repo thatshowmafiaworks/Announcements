@@ -1,4 +1,6 @@
 using Announcements.UI.Models;
+using Announcements.UI.Models.DTOs;
+using Announcements.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +9,18 @@ namespace Announcements.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAnnouncementsService _api;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(ILogger<HomeController> logger, IAnnouncementsService api)
+            => (_logger, _api) = (logger, api);
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new AnnouncementsDisplayModel
+            {
+                List = await _api.ReadAll()
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()
