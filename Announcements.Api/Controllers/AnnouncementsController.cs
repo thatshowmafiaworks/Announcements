@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Announcements.Api.Controllers
 {
-    [Route("announcement")]
     [Controller]
     public class AnnouncementsController(IAnnouncementsRepository repo, ILogger<AnnouncementsController> logger) : ControllerBase
     {
+        [Route("announcement")]
         [HttpGet]
         public async Task<IActionResult> ReadAll()
         {
@@ -23,9 +23,9 @@ namespace Announcements.Api.Controllers
                 return StatusCode(500, new { error = "Something went wrong, please try later" });
             }
         }
-
-        [HttpGet("/{id}")]
-        public async Task<IActionResult> Read([FromQuery] string id)
+        [Route("announcement/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> Read([FromRoute] string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -43,7 +43,7 @@ namespace Announcements.Api.Controllers
                 return StatusCode(500, new { error = "Something went wrong, please try later" });
             }
         }
-
+        [Route("announcement")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AnnouncementDto model)
         {
@@ -64,9 +64,9 @@ namespace Announcements.Api.Controllers
                 return StatusCode(500, new { error = "Something went wrong, please try later" });
             }
         }
-
-        [HttpPut("/{id}")]
-        public async Task<IActionResult> Update([FromQuery] string id, [FromBody] AnnouncementDto model)
+        [Route("announcement/{id}")]
+        [HttpPut]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] AnnouncementDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -91,8 +91,9 @@ namespace Announcements.Api.Controllers
             }
         }
 
-        [HttpDelete("/{id}")]
-        public async Task<IActionResult> Delete([FromQuery] string id)
+        [Route("announcement/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {

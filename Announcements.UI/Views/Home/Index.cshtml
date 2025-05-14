@@ -4,8 +4,6 @@
 
 <h2>Announcements</h2>
 
-<a asp-action="Create" asp-controller="Announcement" class="btn btn-primary">Create new</a>
-
 <div class="w-100 mt-4 d-flex flex-wrap">
     @foreach (var item in Model.List)
     {
@@ -19,5 +17,9 @@
                 </p>
             </div>
         </div>
+    }
+    @if (Model?.List?.Count == 0)
+    {
+        <h3>There are no announcements!</h3>
     }
 </div>

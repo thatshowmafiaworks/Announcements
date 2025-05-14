@@ -1,0 +1,32 @@
+﻿@model AnnouncementDto
+<div style="width:50%">
+    <h2>Create New Announcement</h2>
+    <a asp-action="All" asp-controller="Announcement" class="btn btn-primary">Back</a>
+    <form asp-action="Create">
+        <div class="my-2">
+            <label>Title*</label>
+            <input type="text" class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>Description</label>
+            <input type="text" class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>Category</label>
+            <input type="text" class="form-control" asp-for="Category" />
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>SubCategory</label>
+            <input type="text" class="form-control" asp-for="SubCategory" />
+            <span asp-validation-for="SubCategory" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <button type="submit" class="btn btn-info">Add</button>
+        </div>
+
+    </form>
+</div>
+

@@ -1,0 +1,43 @@
+﻿@model Announcement
+
+<div style="width:50%">
+    <h2>Update Announcement</h2>
+    <a asp-action="All" asp-controller="Announcement" class="btn btn-primary">Back</a>
+    <form asp-action="Update">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CreatedDate" />
+        <input type="hidden" asp-for="UpdatedDate" />
+
+
+        <div class="my-2">
+            <label>Title*</label>
+            <label>@Model.Title</label>
+            <input type="text" class="form-control" asp-for="Title" value="@Model.Title"/>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>Description</label>
+            <input type="text" class="form-control" asp-for="Description" value="@Model.Description"/>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>Status*</label>
+            <input type="text" class="form-control" asp-for="Status" value="@Model.Status"/>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>Category*</label>
+            <input type="text" class="form-control" asp-for="Category" value="@Model.Category"/>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <label>SubCategory*</label>
+            <input type="text" class="form-control" asp-for="SubCategory" value="@Model.SubCategory"/>
+            <span asp-validation-for="SubCategory" class="text-danger"></span>
+        </div>
+        <div class="my-2">
+            <button type="submit" class="btn btn-info">Update</button>
+        </div>
+    </form>
+</div>
+

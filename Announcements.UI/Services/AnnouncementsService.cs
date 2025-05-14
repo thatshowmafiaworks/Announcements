@@ -23,7 +23,7 @@ namespace Announcements.UI.Services
         {
             try
             {
-                var response = await client.DeleteAsync(api + '/' + id);
+                var response = await client.DeleteAsync(api + "/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     logger.LogInformation($"Deleted announcement with id:{id}");
@@ -39,7 +39,7 @@ namespace Announcements.UI.Services
         {
             try
             {
-                var response = await client.GetAsync(api + '/' + id);
+                var response = await client.GetAsync(api + "/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var opts = new JsonSerializerOptions
@@ -94,7 +94,7 @@ namespace Announcements.UI.Services
             try
             {
                 var content = new StringContent(JsonSerializer.Serialize(item), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync(api + '/' + item.Id, content);
+                var response = await client.PutAsync(api + "/" + item.Id, content);
                 if (response.IsSuccessStatusCode)
                 {
                     logger.LogInformation($"Updated announcement with id:'{item.Id}'");
