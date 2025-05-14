@@ -1,3 +1,3 @@
 # Announcements
 
-## [Link to website](testuiinternship-cfdsewbncyhehnas.polandcentral-01.azurewebsites.net)
+## [Link to website](https://testuiinternship-cfdsewbncyhehnas.polandcentral-01.azurewebsites.net/)
